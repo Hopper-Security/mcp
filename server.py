@@ -1,9 +1,3 @@
-
-import vulnerabilities
-import ai
-import licenses
-
-
 from mcp_instance import mcp
 
 if __name__ == "__main__":
