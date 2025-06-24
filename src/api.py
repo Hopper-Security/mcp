@@ -1,6 +1,6 @@
 import requests
 
-from config import API_URL, JWT
+from src.config import API_URL, JWT
 
 
 def _call_api(path: str, payload: dict = None, method: str = "POST"):
