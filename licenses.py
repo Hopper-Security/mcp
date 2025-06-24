@@ -1,4 +1,3 @@
-
 from api import api_get
 
 from mcp_instance import mcp
@@ -12,16 +11,16 @@ def list_effective_open_source_licenses() -> list:
     This resource returns all licenses detected across your tenant's codebase, including:
     - Custom and standard license identifiers
     - Full license names and reference links
+    - Osi approved and fsfFree flags
     - Severity classification from your policy (e.g., APPROVED, POTENTIAL_RISK, DENIED)
     - Effective license objects resolved for your current configuration
 
     Useful for:
-    - Conducting comprehensive license audits
     - Understanding your organization's licensing footprint
-    - Powering internal dashboards and compliance tooling
+    - List all licenses detected across your tenant's codebase
 
     Returns:
-        list: A list of `EffectiveOpenSourceLicense` records representing all licenses in use
+        A list of EffectiveOpenSourceLicense records representing all licenses in use
     """
     return api_get("/v1/licenses")
 
@@ -32,9 +31,8 @@ def summarize_license_compliance_by_project() -> list:
     Retrieves license compliance statistics across all projects in your organization.
 
     This resource summarizes the current license status of each project, including:
-    - Project metadata (e.g., name, repository)
-    - Issue counts grouped by severity (APPROVED, POTENTIAL_RISK, DENIED)
-    - Computed stats from the last successful LICENSE analysis job per project
+    - Affected project information (projectId, repoName, moduleName, buildSystemType, isArchived, tags)
+    - Issue stats counts grouped by severity (APPROVED, POTENTIAL_RISK, DENIED)
 
     Especially useful for:
     - Visualizing compliance at a project level
@@ -42,7 +40,7 @@ def summarize_license_compliance_by_project() -> list:
     - Tracking improvement over time for governance reporting
 
     Returns:
-        list: A list of `ProjectLicenseIssueStats` for each scanned project
+        A list of ProjectLicenseIssueStats for each scanned project
     """
     return api_get("/v1/licenses/projects/stats")
 
@@ -53,10 +51,10 @@ def get_detailed_project_license_issues(project_id: int) -> dict:
     Retrieves detailed license issues and dependencies for a specific project.
 
     This resource provides a deep view of the licensing landscape within a single project, including:
+    - Affected project information (projectId, repoName, moduleName, buildSystemType, isArchived, tags)
     - All dependencies (direct and transitive)
     - Their associated licenses and severity classifications
-    - Violations of organizational policy
-    - Dependency metadata (e.g., package URL)
+    - Package metadata (e.g., package URL)
 
     Helpful for:
     - Auditing and remediating specific project license issues
@@ -67,7 +65,7 @@ def get_detailed_project_license_issues(project_id: int) -> dict:
         project_id (int): The unique ID of the project
 
     Returns:
-        dict: A `ProjectLicenseIssues` object with dependency and license issue details
+        A ProjectLicenseIssues object with project metadata and detailed dependency license information
     """
     return api_get(f"/v1/licenses/projects/{project_id}")
 
@@ -84,10 +82,11 @@ def list_license_policies() -> list:
 
     Useful for:
     - Governance reviews and audits
+    - Verify all policies
     - Ensuring consistent policy enforcement across modules
     - Building developer guidance or internal license rulebooks
 
     Returns:
-        list: A list of `TenantLicensePolicy` objects
+        A list of TenantLicensePolicy objects
     """
     return api_get("/v1/licenses/policies")
