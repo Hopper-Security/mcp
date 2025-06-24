@@ -1,41 +1,54 @@
-# MCP Project
+# MCP Project (Hopper Security API Client)
 
-## Continuous Integration
+## Overview
 
-This project uses GitHub Actions for continuous integration to ensure code quality. The CI pipeline runs automatically on pull requests to the `main` branch.
+MCP (Master Control Program) is a client application for the Hopper Security API that provides access to security-related information about your codebase. It serves as a bridge between your applications and Hopper Security's platform, exposing various security resources through a simple interface.
 
-### CI Workflow
+The project uses the FastMCP framework to create a server that exposes resources for:
 
-The CI workflow performs the following checks:
+- **License Compliance**: Track open source licenses, compliance by project, and license policies
+- **Vulnerability Management**: Monitor security vulnerabilities, their reachability, and SLA configurations
+- **AI Usage Tracking**: Identify AI technologies used across your projects and fetch AI model metadata
 
-1. **Linting with Pylint**: Checks code style and quality using Pylint
-2. **Type Checking with Mypy**: Verifies type annotations using Mypy
 
-### Running Checks Locally
+## Configuration
 
-To run the same checks locally before submitting a pull request:
+The application requires the following configuration:
 
-1. Install the required development dependencies:
+1. **JWT Token**: You need to set the `JWT` environment variable with a valid JWT token for authenticating with the Hopper Security API:
    ```bash
-   pip install pylint mypy types-requests
+   export JWT=your_jwt_token_here
    ```
 
-2. Run Pylint:
-   ```bash
-   pylint --rcfile=.pylintrc *.py
-   ```
+2. **API URL**: By default, the application connects to `https://api-main.prod.hopper.security`. If you need to use a different API endpoint, modify the `API_URL` in `config.py`.
 
-3. Run Mypy:
-   ```bash
-   mypy --config-file mypy.ini *.py
-   ```
 
-## Configuration Files
+## Available Resources
 
-- `.github/workflows/python-ci.yml`: GitHub Actions workflow configuration
-- `.pylintrc`: Pylint configuration
-- `mypy.ini`: Mypy configuration
+#### License Resources
 
-## Project Dependencies
+- `mcp://licenseInventory`: List all effective open source licenses in your organization
+- `mcp://licenseProjects`: Summarize license compliance by project
+- `mcp://projectLicenseDetails/{project_id}`: Get detailed license issues for a specific project
+- `mcp://licensePolicies`: List all license policies configured in your organization
 
-See `requirements.txt` for the list of project dependencies.
+#### Vulnerability Resources
+
+- `mcp://vulnerabilityStats`: Get aggregated statistics about vulnerabilities across all projects
+- `mcp://vulnerability.searchIssues`: Search for vulnerability issues across all projects
+- `mcp://vulnerability.issueReachability/{projectId}/{issueId}`: Get reachability analysis for a specific vulnerability
+- `mcp://slaConfig`: Get the SLA configuration for vulnerability resolution timeframes
+
+#### AI Resources
+
+- `mcp://aiApplications`: List all projects utilizing AI technologies
+- `mcp://aiModelInfo/{provider}/{modelName}`: Fetch detailed metadata for a specific AI model
+
+
+## License
+
+This project is proprietary software owned by Hopper Security.
+
+## Support
+
+For questions or issues related to this project, please contact Hopper Security support.
