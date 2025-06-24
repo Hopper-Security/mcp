@@ -69,8 +69,8 @@ def get_vulnerability_reachability(projectId: int, issueId: int) -> dict:
     - Source code links when available
 
     Args:
-        projectId (int): The ID of the project containing the vulnerability
-        issueId (int): The ID of the vulnerability issue to analyze
+        projectId (long): The ID of the project containing the vulnerability
+        issueId (long): The ID of the vulnerability issue to analyze
 
     This resource is useful for:
     - Determining if a vulnerability is exploitable in your specific codebase

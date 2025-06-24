@@ -11,7 +11,7 @@ def list_effective_open_source_licenses() -> list:
     This resource returns all licenses detected across your tenant's codebase, including:
     - Custom and standard license identifiers
     - Full license names and reference links
-    - Osi approved and fsfFree flags
+    - OSI approved and FSF free flags
     - Severity classification from your policy (e.g., APPROVED, POTENTIAL_RISK, DENIED)
     - Effective license objects resolved for your current configuration
 
@@ -62,7 +62,7 @@ def get_detailed_project_license_issues(project_id: int) -> dict:
     - Preparing due diligence or legal disclosures
 
     Args:
-        project_id (int): The unique ID of the project
+        project_id (long): The unique ID of the project
 
     Returns:
         A ProjectLicenseIssues object with project metadata and detailed dependency license information
