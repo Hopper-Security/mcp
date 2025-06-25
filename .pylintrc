@@ -67,6 +67,11 @@ disable=raw-checker-failed,
         too-many-nested-blocks,
         line-too-long
 
+# Per-file ignores
+per-file-ignores=
+    # Allow unused imports in server.py
+    server.py: unused-import
+
 [FORMAT]
 # Expected format of line ending, e.g. empty (any line ending), LF or CRLF.
 expected-line-ending-format=
