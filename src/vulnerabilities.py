@@ -3,9 +3,8 @@ from src.api import api_get
 from src.mcp_instance import mcp
 
 
-@mcp.resource("mcp://vulnerabilityStats")
-def get_vulnerabilities_stats() -> dict:
-    """
+@mcp.tool(
+    "vulnerabilityStats", description="""
 
     Retrieves aggregated statistics about vulnerabilities across all projects in the tenant's environment.
 
@@ -21,13 +20,12 @@ def get_vulnerabilities_stats() -> dict:
 
     Returns:
         A list of VulnerabilityProject objects, each containing project metadata and vulnerability statistics
-    """
+    """)
+def get_vulnerabilities_stats() -> dict:
     return api_get("/v1/vulnerabilities/projects/stats")
 
 
-@mcp.resource("mcp://vulnerability.searchIssues")
-def search_vulnerability_issues() -> dict:
-    """
+@mcp.tool("vulnerabilityIssues", description="""
     Retrieves detailed information about vulnerability issues across all projects.
 
     The returned data includes comprehensive details for each vulnerability:
@@ -51,13 +49,12 @@ def search_vulnerability_issues() -> dict:
 
     Returns:
         A list of ProjectIssue objects containing detailed vulnerability data
-    """
+    """)
+def search_vulnerability_issues() -> dict:
     return api_get("/v1/vulnerabilities/issues")
 
 
-@mcp.resource("mcp://vulnerability.issueReachability/{projectId}/{issueId}")
-def get_vulnerability_reachability(projectId: int, issueId: int) -> dict:
-    """
+@mcp.tool("vulnerabilityReachability", description="""
     Retrieves reachability analysis for a specific vulnerability issue in a given project.
 
     This analysis helps determine whether the vulnerable code path is actually reachable
@@ -80,13 +77,12 @@ def get_vulnerability_reachability(projectId: int, issueId: int) -> dict:
 
     Returns:
         ReachabilityAnalysis object containing verdict and evidence data
-    """
+    """)
+def get_vulnerability_reachability(projectId: int, issueId: int) -> dict:
     return api_get(f"/v1/vulnerabilities/projects/{projectId}/issues/{issueId}/reachability")
 
 
-@mcp.resource("mcp://slaConfig")
-def get_sla_config() -> dict:
-    """
+@mcp.tool("slaConfig", description="""
     Retrieves the Service Level Agreement (SLA) configuration for the current tenant.
 
     The SLA configuration defines the expected resolution timeframes (in days) for vulnerabilities
@@ -112,5 +108,6 @@ def get_sla_config() -> dict:
 
     Returns:
          A SlaConfig object containing the SLA configuration parameters for the current tenant
-    """
+    """)
+def get_sla_config() -> dict:
     return api_get("/v1/sla/config")

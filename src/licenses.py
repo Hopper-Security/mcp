@@ -3,9 +3,7 @@ from src.api import api_get
 from src.mcp_instance import mcp
 
 
-@mcp.resource("mcp://licenseInventory")
-def list_effective_open_source_licenses() -> list:
-    """
+@mcp.tool("licenseInventory", description="""
     Retrieves the full inventory of effective open source licenses in your organization.
 
     This resource returns all licenses detected across your tenant's codebase, including:
@@ -21,13 +19,12 @@ def list_effective_open_source_licenses() -> list:
 
     Returns:
         A list of EffectiveOpenSourceLicense records representing all licenses in use
-    """
+    """)
+def list_effective_open_source_licenses() -> list:
     return api_get("/v1/licenses")
 
 
-@mcp.resource("mcp://licenseProjects")
-def summarize_license_compliance_by_project() -> list:
-    """
+@mcp.tool("licenseProjects", description="""
     Retrieves license compliance statistics across all projects in your organization.
 
     This resource summarizes the current license status of each project, including:
@@ -41,13 +38,12 @@ def summarize_license_compliance_by_project() -> list:
 
     Returns:
         A list of ProjectLicenseIssueStats for each scanned project
-    """
+    """)
+def summarize_license_compliance_by_project() -> list:
     return api_get("/v1/licenses/projects/stats")
 
 
-@mcp.resource("mcp://projectLicenseDetails/{project_id}")
-def get_detailed_project_license_issues(project_id: int) -> dict:
-    """
+@mcp.tool("projectLicenseDetails", description="""
     Retrieves detailed license issues and dependencies for a specific project.
 
     This resource provides a deep view of the licensing landscape within a single project, including:
@@ -66,13 +62,12 @@ def get_detailed_project_license_issues(project_id: int) -> dict:
 
     Returns:
         A ProjectLicenseIssues object with project metadata and detailed dependency license information
-    """
+    """)
+def get_detailed_project_license_issues(project_id: int) -> dict:
     return api_get(f"/v1/licenses/projects/{project_id}")
 
 
-@mcp.resource("mcp://licensePolicies")
-def list_license_policies() -> list:
-    """
+@mcp.tool("licensePolicies", description="""
     Retrieves all license policies configured in your organization.
 
     This includes:
@@ -88,5 +83,6 @@ def list_license_policies() -> list:
 
     Returns:
         A list of TenantLicensePolicy objects
-    """
+    """)
+def list_license_policies() -> list:
     return api_get("/v1/licenses/policies")
