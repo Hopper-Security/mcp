@@ -3,9 +3,7 @@ from src.api import api_get
 from src.mcp_instance import mcp
 
 
-@mcp.resource("mcp://aiApplications")
-def list_ai_applications() -> list:
-    """
+@mcp.tool("aiApplications", description="""
     Retrieves all projects in your organization that are utilizing AI technologies.
 
     This resource provides a detailed inventory of AI model usage across your codebase,
@@ -25,13 +23,12 @@ def list_ai_applications() -> list:
 
     Returns:
         A list of `ProjectAiModelUsage` records representing AI usage across projects.
-    """
+    """)
+def list_ai_applications() -> list:
     return api_get("/v1/ai/usages")
 
 
-@mcp.resource("mcp://aiModelInfo/{provider}/{modelName}")
-def fetch_ai_model_metadata(provider: str, modelName: str) -> dict:
-    """
+@mcp.tool("aiModelInfo", description="""
     Fetches detailed metadata for a specific AI model provided by a given AI provider.
 
     This resource provides a detailed inventory of AI model usage across your codebase,
@@ -54,5 +51,6 @@ def fetch_ai_model_metadata(provider: str, modelName: str) -> dict:
 
     Returns:
         A `ModelInfo` object describing the requested AI model in detail.
-    """
+    """)
+def fetch_ai_model_metadata(provider: str, modelName: str) -> dict:
     return api_get(f"/v1/ai/providers/{provider}/models?name={modelName}")
